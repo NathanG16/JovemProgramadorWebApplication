@@ -1,0 +1,33 @@
+﻿@using JovemProgramadorWebApplication
+@using JovemProgramadorWebApplication.Models
+@{
+    ViewData["Title"] = "Editar Aluno";
+}
+@model Aluno 
+
+<h3>Editar Aluno</h3>
+
+<form asp-controller="Aluno" asp-action="EditarAluno" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3 col-md-4">
+        <label class="form-label">Matricula:</label>
+        <input type="text" asp-for="Matricula" class="form-control">
+    </div>
+
+    <div class="mb-3 col-md-2">
+        <label class="form-label">Nome:</label>
+        <input type="text" asp-for="Nome" class="form-control ">
+    </div>
+    <div class="mb-3 col-md-2">
+        <label class="form-label">Cpf:</label>
+        <input type="text" asp-for="Cpf" class="form-control ">
+    </div>
+    <div class="mb-3 col-md-2">
+        <label class="form-label">Data de nascimento:</label>
+        <input type="text" asp-for="Data_De_Nascimento" class="form-control ">
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Editar</button>
+        <a class="btn btn-primary" type="button" asp-controller="Aluno" asp-action="Index"> Voltar</a>
+    </div>
+</form>

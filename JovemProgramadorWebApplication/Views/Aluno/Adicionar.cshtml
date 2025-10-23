@@ -1,0 +1,73 @@
+﻿@using JovemProgramadorWebApplication
+@using JovemProgramadorWebApplication.Models
+@{
+    Layout = "_LayoutAluno";
+}
+@model Aluno
+
+<form asp-controller="Aluno" asp-action="CadastrarAluno" method="post">
+
+    <div class="mb-3 col-md-4">
+        <label class="form-label">Matricula:</label>
+        <input type="text" asp-for="Matricula" class="form-control">
+    </div>
+
+    <div class="mb-3 col-md-2">
+        <label class="form-label">Nome:</label>
+        <input type="text" asp-for="Nome" class="form-control ">
+    </div>
+    <div class="mb-3 col-md-2">
+        <label class="form-label">Cpf:</label>
+        <input type="text" asp-for="Cpf" class="form-control ">
+    </div>
+    <div class="mb-3 col-md-2">
+        <label class="form-label">Data de nascimento:</label>
+        <input type="text" asp-for="Data_De_Nascimento" class="form-control ">
+    </div>
+    <div class="mb-3 col-md-2">
+        <label class="form-label">Cep:</label>
+        <input type="text" asp-for="Cep" class="form-control ">
+    </div>
+    <div class="mb-3 col-md-2">
+        <label class="form-label">Endereço:</label>
+        <input type="text" asp-for="Endereco" class="form-control ">
+    </div>
+    <div class="mb-3 col-md-2">
+        <label class="form-label">Bairro:</label>
+        <input type="text" asp-for="Bairro" class="form-control ">
+    </div>
+    <div class="mb-3 col-md-2">
+        <label class="form-label">Cidade:</label>
+        <input type="text" asp-for="Cidade" class="form-control ">
+    </div>
+    <div class="mb-3 col-md-2">
+        <label class="form-label">Numero:</label>
+        <input type="text" asp-for="Numero" class="form-control ">
+    </div>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+        <a class="btn btn-primary" type="button" asp-controller="Home" asp-action="Index"> Voltar</a>
+    </div>
+</form>
+
+<script>
+    document.getElementById("Cep").addEventListener("blur", function () {
+        let cep = this.value.replace(/\D/g, '');
+
+        if (cep.length === 8) {
+            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.erro) {
+                        document.getElementById("Endereco").value = data.logradouro || "";
+                        document.getElementById("Bairro").value = data.bairro || "";
+                        document.getElementById("Cidade").value = data.localidade || "";
+                    } else {
+                        alert("CEP não encontrado!");
+                    }
+                })
+                .catch(err => console.error("Erro na consulta:", err));
+        }
+    });
+</script>

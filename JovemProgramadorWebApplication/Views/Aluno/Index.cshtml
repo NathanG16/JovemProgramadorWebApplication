@@ -1,0 +1,46 @@
+﻿@using System.Linq
+@model List<JovemProgramadorWebApplication.Models.Aluno>
+@{
+    Layout = "_LayoutAluno";
+}
+<div>
+    <form method="get" asp-controller="Aluno" asp-action="Index">
+        <input type="text" name="buscar" placeholder="Buscar aluno..." class="form-control" style="width:300px; display:inline-block;" />
+        <button type="submit" class="btn btn-primary">Pesquisar</button>
+    </form>
+
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Matricula</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Cpf</th>
+            <th scope="col">Data de Nascimento</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (Aluno aluno in Model)
+            {
+                <tr>
+                    <td>@aluno.Matricula</td>
+                    <td>@aluno.Nome</td>
+                    <td>@aluno.Cpf</td>
+                    <td>@aluno.Data_De_Nascimento.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        <div class="d-grid gab-2 d-nd-block">
+                            <a type="submit" class="btn btn-primary" role="button" asp-controller="Aluno" asp-action="Editar" asp-route-id="@aluno.Id">Editar</a>
+                            <a type="submit" class="btn btn-primary" role="button" asp-controller="Aluno" asp-action="Excluir" asp-route-id="@aluno.Id">Excluir</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<div class="text-center">
+    <a class="btn btn-primary" type="button" asp-controller="Aluno" asp-action="Adicionar"> Cadastrar Aluno</a>
+    <a class="btn btn-primary" type="button" asp-controller="Home" asp-action="Index"> Voltar</a>
+</div>

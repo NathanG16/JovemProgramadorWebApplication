@@ -1,0 +1,44 @@
+﻿@using JovemProgramadorWebApplication
+@using JovemProgramadorWebApplication.Models
+@model List<JovemProgramadorWebApplication.Models.Professor>
+
+@{
+        Layout = "_LayoutProfessor";
+}
+<div>
+<form method="get" asp-controller="Professor" asp-action="Index">
+    <input type="text" name="buscar" placeholder="Buscar Professor..." class="form-control" style="width:300px; display:inline-block;" />
+    <button type="submit" class="btn btn-primary">Pesquisar</button>
+</form>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Nome do Professor</th>
+            <th scope="col">Disciplina</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (Professor professor in Model)
+            {
+                <tr>
+                    <td>@professor.NomeCompleto</td>
+                    <td>@professor.Disciplina</td>
+                    <td>
+                        <div class="d-grid gab-2 d-nd-block">
+                            <a type="submit" class="btn btn-primary" role="button" asp-controller="Professor" asp-action="Editar" asp-route-id="@professor.Id">Editar</a>
+                            <a type="submit" class="btn btn-primary" role="button" asp-controller="Professor" asp-action="Excluir" asp-route-id="@professor.Id">Excluir</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<div class="text-center">
+    <a class="btn btn-primary" type="button" asp-controller="Professor" asp-action="Adicionar"> Cadastrar Professor</a>
+    <a class="btn btn-primary" type="button" asp-controller="Home" asp-action="Index"> Voltar</a>
+</div>
