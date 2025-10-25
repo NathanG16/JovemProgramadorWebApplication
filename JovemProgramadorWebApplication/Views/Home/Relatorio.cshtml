@@ -1,0 +1,35 @@
+﻿@using System.Linq
+
+@model RelatorioViewModel
+@{
+    Layout = "_LayoutHome";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Matricula</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Cpf</th>
+            <th scope="col">Data de Nascimento</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (RelatorioViewModel relatorioViewModel in Model)
+            {
+                <tr>
+                    <td>@relatorioViewModel.Aluno.Nome</td>
+                    <td>@relatorioViewModel.Aluno.Matricula</td>
+                    <td>@relatorioViewModel.Turma.Nome</td>
+                    <td>@relatorioViewModel.Turma.DataInicio</td>
+                    <td>@relatorioViewModel.Turma.DataFim</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<div class="text-center">
+    <a class="btn btn-primary" type="button" asp-controller="Home" asp-action="Index"> Voltar</a>
+</div>

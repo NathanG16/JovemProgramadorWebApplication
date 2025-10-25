@@ -1,3 +1,5 @@
+using JovemProgramadorWebApplication.Data.Repositorio;
+using JovemProgramadorWebApplication.Data.Repositorio.Interfaces;
 using JovemProgramadorWebApplication.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -6,16 +8,31 @@ namespace JovemProgramadorWebApplication.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> _logger; IAlunoRepositorio _alunoRepositorio; ITurmaRepositorio _turmaRepopsitorio;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IAlunoRepositorio alunoRepositorio, ITurmaRepositorio turmaRepositorio)
         {
             _logger = logger;
+            _alunoRepositorio = alunoRepositorio;
+            _turmaRepopsitorio = turmaRepositorio;
         }
 
         public IActionResult Index()
         {
             return View();
+        }
+        public IActionResult Relatorio()
+        {
+            var alunos = _alunoRepositorio.BuscarAluno();
+            var turmas = _turmaRepopsitorio.BuscarTurma();
+
+            List<RelatorioViewModel> relatorioViewModels = alunos
+                .Select(x => new RelatorioViewModel
+                {
+                    Aluno = x,
+                    Turma = turmas.FirstOrDefault( y => y.Id == x.IdTurma)
+                }).ToList();
+            return View(relatorioViewModels);
         }
 
         public IActionResult Privacy()
