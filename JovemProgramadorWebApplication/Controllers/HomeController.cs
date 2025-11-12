@@ -30,7 +30,7 @@ namespace JovemProgramadorWebApplication.Controllers
                 .Select(x => new RelatorioViewModel
                 {
                     Aluno = x,
-                    Turma = turmas.FirstOrDefault( y => y.Id == x.IdTurma)
+                    Turma = turmas.FirstOrDefault( y => y.Id == x.Id_Turma)
                 }).ToList();
             return View(relatorioViewModels);
         }
